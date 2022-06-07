@@ -1,1 +1,6 @@
-<app-shared-list [items]="items"></app-shared-list>
+<ng-container *ngIf="loading$ | async; else list">
+    <app-shared-loading-indicator></app-shared-loading-indicator>
+</ng-container>
+<ng-template #list>
+    <app-shared-list [items]="(books$ | async) ?? []"></app-shared-list>
+</ng-template>

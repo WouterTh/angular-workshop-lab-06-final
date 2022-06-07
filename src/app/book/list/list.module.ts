@@ -1,4 +1,5 @@
 import { SharedListModule } from 'src/app/shared/list';
+import { SharedLoadingIndicatorModule } from 'src/app/shared/loading-indicator';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,7 @@ import { ListComponent } from './list.component';
   imports: [
     CommonModule,
     SharedListModule,
+    SharedLoadingIndicatorModule,
     ListRoutingModule
   ]
 })

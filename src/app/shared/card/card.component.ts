@@ -1,4 +1,4 @@
-import { Book, Movie } from 'src/app/types';
+import { Book, Movie } from 'src/app/data/types';
 
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 

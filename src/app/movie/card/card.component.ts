@@ -1,4 +1,4 @@
-import { Movie } from 'src/app/types';
+import { Movie } from 'src/app/data/types';
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 

@@ -1,4 +1,4 @@
-import { Book } from 'src/app/types';
+import { Book } from 'src/app/data/types';
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 

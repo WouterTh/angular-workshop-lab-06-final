@@ -1,5 +1,6 @@
-import { DataService } from 'src/app/core/data.service';
-import { Book } from 'src/app/types';
+import { combineLatest, map, Observable } from 'rxjs';
+import { StoreService } from 'src/app/data/store';
+import { Book } from 'src/app/data/types';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -11,17 +12,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListComponent implements OnInit {
 
-  items: Book[] = [];
+  books$?: Observable<Book[]>;
+  loading$?: Observable<boolean>;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly dataService: DataService
-  ) {}
+    private readonly store: StoreService
+  ) { }
 
   ngOnInit(): void {
-    const maxItems = parseInt(this.route.snapshot.queryParamMap.get('maxItems') ?? '10', 10);
-    this.dataService.getData().subscribe({
-      next: (data) => this.items = data.filter(d => d.type === 'book').slice(0, maxItems) as Book[]
-    });
+    this.books$ = combineLatest([
+      this.route.queryParamMap.pipe(
+        map(params => params.get('maxItems') ?? '10'),
+        map(maxItems => parseInt(maxItems, 10))
+      ),
+      this.store.books$
+    ]).pipe(
+      map(([maxItems, books]: [number, Book[]]) => books.slice(0, maxItems)) 
+    );
+    this.loading$ = this.store.loading$;
   }
 }
